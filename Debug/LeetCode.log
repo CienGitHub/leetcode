@@ -1,0 +1,5 @@
+﻿  Solution.cpp
+e:\behard\leetcode\solution.cpp(8): warning C4018: “<”: 有符号/无符号不匹配
+e:\behard\leetcode\solution.cpp(39): warning C4018: “<”: 有符号/无符号不匹配
+e:\behard\leetcode\solution.cpp(74): warning C4018: “<”: 有符号/无符号不匹配
+  LeetCode.vcxproj -> E:\Behard\LeetCode\Debug\LeetCode.exe
