@@ -1,3 +1,7 @@
 ﻿  Solution.cpp
 e:\behard\leetcode\solution.cpp(205): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+e:\behard\leetcode\solution.cpp(339): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+e:\behard\leetcode\solution.cpp(398): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  LeetCode.cpp
+  正在生成代码...
   LeetCode.vcxproj -> E:\Behard\LeetCode\x64\Debug\LeetCode.exe

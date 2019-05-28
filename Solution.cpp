@@ -309,3 +309,109 @@ bool Solution::canFinish(int numCourses, vector<vector<int>>& prerequisites) {
 
 	return popCount == numCourses;
 }
+
+vector<int> Solution::findMinHeightTrees(int n, vector<vector<int>>& edges) {
+	
+	if (n == 1)
+		return { 0 };
+	
+	vector<int> ret;	//结果容器
+	queue<int> queue;	//辅助队列
+
+	//初始化邻接表
+	vector<vector<int>> g(n, vector<int>());
+
+	//生成邻接表
+	for (auto edge : edges) {
+		g[edge[0]].push_back(edge[1]);
+		g[edge[1]].push_back(edge[0]);
+	}
+
+	for (int v = 0; v < n; v++) {
+		//遍历所有节点，度为1的节点入队
+		if (g[v].size() == 1) {
+			queue.push(v);
+		}
+	}
+
+	while (n > 2) {
+		//图中节点数大于2个的时候循环
+		int size = queue.size();
+		n -= size;
+
+		for (int i = 0; i < size; i++) {
+			int curV = queue.front();
+			queue.pop();
+			for (auto adjV : g[curV]) {
+				//遍历入度为1的节点的所有相邻节点
+				g[adjV].erase(find(g[adjV].begin(), g[adjV].end(), curV));	//从相邻节点的相邻节点中删除该节点
+				if (g[adjV].size() == 1)
+					//删除之后如果度为1，入队
+					queue.push(adjV);
+			}
+		}
+	}
+	
+	while (!queue.empty()) {
+		ret.push_back(queue.front());
+		queue.pop();
+	}
+
+	return ret;
+}
+
+vector<string> getNexts(string curStr) {
+
+	vector<string> ret;
+
+	for (int i = 0; i < 4; i++) {
+		string newStr = curStr;
+		newStr[i] == '9' ? newStr[i] = '0' : newStr[i] ++;
+		ret.push_back(newStr);
+		newStr = curStr;
+		newStr[i] == '0' ? newStr[i] = '9' : newStr[i] --;
+		ret.push_back(newStr);
+	}
+
+	return ret;
+}
+
+int Solution::openLock(vector<string>& deadends, string target) {
+
+	if (target == "0000")
+		return 0;
+	
+	unordered_set<string> deadendsSet(deadends.begin(), deadends.end());	//死锁集
+	if (deadendsSet.count("0000") != 0 || deadendsSet.count(target) != 0)
+		return -1;
+	
+	queue<string> buffer;		//队列缓冲区，存放需要考虑的所有情况
+	buffer.push("0000");
+
+	unordered_set<string> visited;	//已经被访问的密码集合
+	visited.insert("0000");
+	
+	int step = 0;	//解锁所需步数
+
+	while (!buffer.empty()) {
+
+		int size = buffer.size();		//记录当前层数量
+		while (size-- > 0) {
+			vector<string> nexts = getNexts(buffer.front());
+			buffer.pop();
+			for (auto next : nexts) {
+				//遍历下一步的所有可能
+				if (next == target)
+					//解锁
+					return ++step;
+				if (deadendsSet.count(next) == 0 && visited.count(next) == 0) {
+					//既不会锁死，也没有被访问过
+					visited.insert(next);
+					buffer.push(next);		//入队
+				}
+			}
+		}
+		step++;
+	}
+	return -1;
+}

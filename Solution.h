@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cassert>
 
+#include <set>
+#include <unordered_set>
 #include <stack>
 #include <queue>
 #include <vector>
@@ -124,6 +126,22 @@ public:
 	* date: 2019/5/23
 	*/
 	bool canFinish(int numCourses, vector<vector<int>>& prerequisites);
+
+	/*
+	* No.310 Minimum Height Trees
+	* desc: For an undirected graph with tree characteristics, we can choose any node as the root.
+	*		The result graph is then a rooted tree. Among all possible rooted trees, those with minimum height are called minimum height trees (MHTs).
+	*		Given such a graph, write a function to find all the MHTs and return a list of their root labels.
+	* date: 2019/5/24
+	*/
+	vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges);
+
+	/*
+	* No.752 Open the Lock
+	* desc: 
+	* date: 2019/5/27
+	*/
+	int openLock(vector<string>& deadends, string target);
 };
 
 
